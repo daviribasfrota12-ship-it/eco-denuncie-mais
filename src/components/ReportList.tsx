@@ -104,9 +104,9 @@ const ReportList = () => {
 
   const filteredReports = reports.filter(report => {
     return (
-      (filter.type === '' || report.type.includes(filter.type)) &&
-      (filter.status === '' || report.status === filter.status) &&
-      (filter.urgency === '' || report.urgency === filter.urgency) &&
+      (filter.type === '' || filter.type === 'all' || report.type.includes(filter.type)) &&
+      (filter.status === '' || filter.status === 'all' || report.status === filter.status) &&
+      (filter.urgency === '' || filter.urgency === 'all' || report.urgency === filter.urgency) &&
       (filter.search === '' || 
         report.location.toLowerCase().includes(filter.search.toLowerCase()) ||
         report.description.toLowerCase().includes(filter.search.toLowerCase()) ||
@@ -135,12 +135,12 @@ const ReportList = () => {
               />
             </div>
             
-            <Select value={filter.type} onValueChange={(value) => setFilter({...filter, type: value})}>
+            <Select value={filter.type} onValueChange={(value) => setFilter({...filter, type: value === "all" ? "" : value})}>
               <SelectTrigger>
                 <SelectValue placeholder="Tipo de denúncia" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Todos os tipos</SelectItem>
+                <SelectItem value="all">Todos os tipos</SelectItem>
                 <SelectItem value="Desmatamento">Desmatamento</SelectItem>
                 <SelectItem value="Queimadas">Queimadas</SelectItem>
                 <SelectItem value="Descarte Irregular">Descarte Irregular</SelectItem>
@@ -148,12 +148,12 @@ const ReportList = () => {
               </SelectContent>
             </Select>
 
-            <Select value={filter.status} onValueChange={(value) => setFilter({...filter, status: value})}>
+            <Select value={filter.status} onValueChange={(value) => setFilter({...filter, status: value === "all" ? "" : value})}>
               <SelectTrigger>
                 <SelectValue placeholder="Status" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Todos os status</SelectItem>
+                <SelectItem value="all">Todos os status</SelectItem>
                 <SelectItem value="pending">Pendente</SelectItem>
                 <SelectItem value="investigating">Em Investigação</SelectItem>
                 <SelectItem value="resolved">Resolvida</SelectItem>
@@ -161,12 +161,12 @@ const ReportList = () => {
               </SelectContent>
             </Select>
 
-            <Select value={filter.urgency} onValueChange={(value) => setFilter({...filter, urgency: value})}>
+            <Select value={filter.urgency} onValueChange={(value) => setFilter({...filter, urgency: value === "all" ? "" : value})}>
               <SelectTrigger>
                 <SelectValue placeholder="Urgência" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Todas as urgências</SelectItem>
+                <SelectItem value="all">Todas as urgências</SelectItem>
                 <SelectItem value="low">Baixa</SelectItem>
                 <SelectItem value="medium">Média</SelectItem>
                 <SelectItem value="high">Alta</SelectItem>
